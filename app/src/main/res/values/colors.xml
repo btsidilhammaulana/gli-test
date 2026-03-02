@@ -72,5 +72,6 @@
 
   <color name="custom_color_page_background">#F6F6F6</color>
   <color name="custom_black_trans_36">#24000000</color>
+  <color name="custom_white_trans">#AAFFFFFF</color>
   <color name="transparent">#00000000</color>
 </resources>

@@ -38,7 +38,7 @@
             android:scaleType="centerCrop"
             tools:listitem="@layout/shimmer_item_popular_movie" />
 
-        <com.gli.custom.shimmer.shimmer.ShimmerView
+        <com.gli.custom.shimmer.ShimmerView
             android:id="@+id/shimmer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -1,3 +1,11 @@
 <resources>
   <string name="app_name">GLI Test</string>
+  <string name="popularity_movie">Popularity: %1$s</string>
+  <string name="label_overview">Overview</string>
+  <string name="label_actor">Actor</string>
+  <string name="label_review">Review</string>
+  <string name="label_similar_movie">Similar Movie</string>
+  <string name="label_no_content">No Content</string>
+  <string name="label_empty_query">Please input query to search movie</string>
+  <string name="label_empty_search">Movie not found</string>
 </resources>

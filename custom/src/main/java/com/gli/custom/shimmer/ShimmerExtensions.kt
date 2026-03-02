@@ -1,4 +1,4 @@
-package com.gli.custom.shimmer.shimmer
+package com.gli.custom.shimmer
 
 import android.animation.ValueAnimator
 import android.graphics.Color

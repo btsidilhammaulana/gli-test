@@ -24,7 +24,16 @@
       </intent-filter>
     </activity>
 
-    <activity android:name=".screen.dashboard.DashboardActivity"/>
+    <activity android:name=".screen.dashboard.DashboardActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:theme="@style/Theme.Material3.Light.NoActionBar"
+        android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
+    <activity android:name=".screen.detail.DetailMovieActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:theme="@style/Theme.Material3.Light.NoActionBar"
+        android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
   </application>
 
 </manifest>

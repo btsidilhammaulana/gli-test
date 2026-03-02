@@ -3,13 +3,12 @@ package com.gli.test.screen.dashboard
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
-import com.gli.custom.shimmer.shimmer.adapter.ShimmerAdapter
+import com.gli.custom.shimmer.adapter.ShimmerAdapter
 import com.gli.model.adapter.NetworkError
 import com.gli.model.adapter.error
 import com.gli.model.adapter.success
@@ -19,6 +18,7 @@ import com.gli.test.base.BaseActivity
 import com.gli.test.databinding.ActivityDashboardBinding
 import com.gli.test.screen.dashboard.adapter.DiscoverMovieAdapter
 import com.gli.test.screen.dashboard.adapter.PopularMovieAdapter
+import com.gli.test.screen.detail.DetailMovieActivity
 import com.gli.test.util.extension.ContextExtensions.getDimenSizeResource
 import com.gli.test.util.grid.GridItemDecoration
 import com.zhpan.bannerview.BaseBannerAdapter
@@ -34,7 +34,9 @@ class DashboardActivity: BaseActivity<ActivityDashboardBinding>() {
   private val movieAdapter: DiscoverMovieAdapter by lazy {
     val adapter = DiscoverMovieAdapter()
     adapter.addOnItemClickListener(object : DiscoverMovieAdapter.ItemClickListener {
-      override fun onItemClicked(movie: MovieModel) { }
+      override fun onItemClicked(movie: MovieModel) {
+        movie.id?.let { id -> movie.title?.let { title -> navigateToDetail(id, title) } }
+      }
     })
     adapter
   }
@@ -182,6 +184,13 @@ class DashboardActivity: BaseActivity<ActivityDashboardBinding>() {
   private fun onGetPopularMovieFailed(error: NetworkError) {
     binding.swipeRefresh.isRefreshing = false
     errorHandler.showError(error)
+  }
+
+  /**
+   * Navigation
+   */
+  private fun navigateToDetail(movieId: Int, movieTitle: String) {
+    startActivity(DetailMovieActivity.newIntent(this, movieId, movieTitle))
   }
 
   companion object {

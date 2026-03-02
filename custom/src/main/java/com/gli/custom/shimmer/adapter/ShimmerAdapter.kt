@@ -1,4 +1,4 @@
-package com.gli.custom.shimmer.shimmer.adapter
+package com.gli.custom.shimmer.adapter
 
 import android.view.LayoutInflater
 import android.view.View

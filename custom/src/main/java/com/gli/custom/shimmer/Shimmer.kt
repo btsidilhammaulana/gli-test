@@ -1,4 +1,4 @@
-package com.gli.custom.shimmer.shimmer
+package com.gli.custom.shimmer
 
 import android.graphics.Color
 import androidx.annotation.ColorInt

@@ -1,4 +1,4 @@
-package com.gli.custom.shimmer.shimmer
+package com.gli.custom.shimmer
 
 import android.content.Context
 import android.content.res.TypedArray
