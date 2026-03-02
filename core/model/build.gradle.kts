@@ -50,8 +50,6 @@ dependencies {
   api(libs.gson)
   implementation(libs.okhttp3.okhttp)
 
-  implementation(libs.androidx.lifecycle.runtime.ktx)
-
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
