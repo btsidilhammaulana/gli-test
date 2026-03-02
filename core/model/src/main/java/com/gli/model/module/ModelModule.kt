@@ -13,7 +13,7 @@ class ModelModule {
 
   @Provides
   @Token
-  fun provideToken(): String? {
+  fun provideToken(): String {
     return BuildConfig.API_READ_ACCESS_TOKEN
   }
 }

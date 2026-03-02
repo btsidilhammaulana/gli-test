@@ -72,7 +72,7 @@ class NetworkClient(
       val modified = original.newBuilder()
       modified.addHeader("Content-Type", "application/json")
       if (token?.isBlank() == false) {
-        modified.addHeader("Authorization", token)
+        modified.addHeader("Authorization", "Bearer $token")
       }
       modified.method(original.method, original.body)
       val request: Request = modified.build()

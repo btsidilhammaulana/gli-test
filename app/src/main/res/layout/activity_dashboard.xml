@@ -1,6 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginTop="?actionBarSize"
+    android:background="@drawable/bg_gradient">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+  <com.google.android.material.appbar.AppBarLayout
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/transparent">
+
+    <com.google.android.material.appbar.CollapsingToolbarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:contentScrim="@color/primary_600"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+      <ViewAnimator
+          android:id="@+id/va_toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="?actionBarSize"
+          android:minHeight="216dp"
+          app:layout_collapseMode="parallax">
+
+        <com.zhpan.bannerview.BannerViewPager
+            android:id="@+id/vp_popular"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="@dimen/spacing"
+            android:clipToPadding="false"
+            android:scaleType="centerCrop"
+            tools:listitem="@layout/shimmer_item_popular_movie" />
+
+        <com.gli.custom.shimmer.shimmer.ShimmerView
+            android:id="@+id/shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="@dimen/spacing" />
+
+      </ViewAnimator>
+
+      <androidx.appcompat.widget.Toolbar
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          app:layout_collapseMode="pin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+          <ImageView
+              android:layout_width="?attr/actionBarSize"
+              android:layout_height="?attr/actionBarSize"
+              android:scaleType="fitCenter"
+              android:src="@drawable/tmdb_logo"
+              tools:ignore="ContentDescription" />
+
+          <EditText
+              android:id="@+id/tf_search"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:autofillHints="@null"
+              android:background="@null"
+              android:hint="@null"
+              android:layout_gravity="center"
+              android:inputType="text"
+              android:layout_marginHorizontal="@dimen/spacing" />
+
+        </LinearLayout>
+
+      </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+  </com.google.android.material.appbar.AppBarLayout>
+
+  <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+      android:id="@+id/swipe_refresh"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <ViewAnimator
+        android:id="@+id/va_movie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/rv_movie"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:clipChildren="false"
+          android:clipToPadding="false"
+          android:overScrollMode="never"
+          android:paddingBottom="@dimen/spacing"
+          tools:listitem="@layout/shimmer_item_movie" />
+
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/rv_shimmer"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:clipChildren="false"
+          android:clipToPadding="false"
+          android:overScrollMode="never"
+          android:paddingBottom="@dimen/spacing"
+          tools:listitem="@layout/shimmer_item_movie" />
+
+    </ViewAnimator>
+
+  </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -11,7 +11,7 @@ import com.gli.model.response.movie.MovieModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class MainScreenUseCase @Inject constructor(
+class DashboardScreenUseCase @Inject constructor(
   private val movieRepository: MovieRepository
 ) {
   fun getDiscoverMovie(): Flow<PagingData<MovieModel>> {

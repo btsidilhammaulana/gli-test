@@ -30,7 +30,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
   protected lateinit var errorHandler: ErrorHandler
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(Color.WHITE))
+    enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT))
     super.onCreate(savedInstanceState)
     setupWindowInset()
     setupOnBackPressed()
@@ -60,7 +60,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     setBackgroundColor(
       ContextCompat.getColor(
         this@BaseActivity,
-        R.color.custom_color_page_background
+        R.color.primary_900
       )
     )
 

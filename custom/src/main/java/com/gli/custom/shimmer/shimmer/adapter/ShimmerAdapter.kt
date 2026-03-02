@@ -1,0 +1,35 @@
+package com.gli.custom.shimmer.shimmer.adapter
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.recyclerview.widget.RecyclerView
+
+class ShimmerAdapter(
+  @param:LayoutRes val layout: Int,
+  private val shownItem: Int,
+) : RecyclerView.Adapter<ShimmerAdapter.ShimmerViewHolder>() {
+
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShimmerViewHolder {
+    val view = LayoutInflater.from(parent.context).inflate(layout, parent, false)
+    return ShimmerViewHolder(view)
+  }
+
+  override fun onBindViewHolder(holder: ShimmerViewHolder, position: Int) {
+    // no implementation
+  }
+
+  private fun createList(): ArrayList<Int> {
+    val result: ArrayList<Int> = arrayListOf()
+    result.clear()
+    for (i in 0 until shownItem) {
+      result.add(i)
+    }
+    return result
+  }
+
+  override fun getItemCount(): Int = shownItem
+
+  inner class ShimmerViewHolder(view: View) : RecyclerView.ViewHolder(view)
+}
