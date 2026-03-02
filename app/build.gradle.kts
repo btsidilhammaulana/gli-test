@@ -53,15 +53,18 @@ dependencies {
   implementation(libs.androidx.appcompat)
   implementation(libs.material)
 
+  implementation(libs.hilt.android)
+  ksp(libs.hilt.compiler)
+
+  implementation(libs.bannerviewpager)
+
   implementation(libs.coil)
   implementation(libs.coil.compose)
   implementation(libs.coil.network.okhttp)
-  implementation(libs.bannerviewpager)
-  implementation(libs.material)
-  implementation(libs.youtube.video.player)
 
-  implementation(libs.hilt.android)
-  ksp(libs.hilt.compiler)
+  implementation(libs.androidx.core.splashscreen)
+
+  implementation(libs.youtube.video.player)
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
