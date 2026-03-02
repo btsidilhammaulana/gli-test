@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center_horizontal"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
           <ImageView
@@ -65,16 +65,19 @@
               android:src="@drawable/tmdb_logo"
               tools:ignore="ContentDescription" />
 
-          <EditText
-              android:id="@+id/tf_search"
-              android:layout_width="match_parent"
+          <Space
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
-              android:autofillHints="@null"
-              android:background="@null"
-              android:hint="@null"
-              android:layout_gravity="center"
-              android:inputType="text"
-              android:layout_marginHorizontal="@dimen/spacing" />
+              android:layout_weight="1"/>
+
+          <ImageView
+              android:id="@+id/iv_search"
+              android:layout_width="48dp"
+              android:layout_height="48dp"
+              android:padding="@dimen/spacing_xs"
+              android:scaleType="fitCenter"
+              android:src="@drawable/ic_search"
+              tools:ignore="ContentDescription" />
 
         </LinearLayout>
 

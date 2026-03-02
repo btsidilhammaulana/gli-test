@@ -1,4 +1,4 @@
-package com.gli.test.screen.dashboard
+package com.gli.test.screen.search
 
 import android.content.Context
 import android.content.Intent
@@ -9,28 +9,24 @@ import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gli.custom.shimmer.adapter.ShimmerAdapter
-import com.gli.model.adapter.NetworkError
-import com.gli.model.adapter.error
-import com.gli.model.adapter.success
 import com.gli.model.response.movie.MovieModel
 import com.gli.test.R
 import com.gli.test.base.BaseActivity
-import com.gli.test.databinding.ActivityDashboardBinding
+import com.gli.test.databinding.ActivitySearchBinding
 import com.gli.test.screen.dashboard.adapter.DiscoverMovieAdapter
-import com.gli.test.screen.dashboard.adapter.PopularMovieAdapter
 import com.gli.test.screen.detail.DetailMovieActivity
-import com.gli.test.screen.search.SearchActivity
 import com.gli.test.util.extension.ContextExtensions.getDimenSizeResource
+import com.gli.test.util.extension.ToolbarExtensions.setAsActionBar
 import com.gli.test.util.grid.GridItemDecoration
-import com.zhpan.bannerview.BaseBannerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlin.getValue
 
 @AndroidEntryPoint
-class DashboardActivity : BaseActivity<ActivityDashboardBinding>() {
+class SearchActivity : BaseActivity<ActivitySearchBinding>() {
 
-  private val viewModel: DashboardViewModel by viewModels()
+  private val viewModel: SearchViewModel by viewModels()
 
   private val movieAdapter: DiscoverMovieAdapter by lazy {
     val adapter = DiscoverMovieAdapter()
@@ -46,51 +42,69 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding>() {
     ShimmerAdapter(R.layout.shimmer_item_movie, 8)
   }
 
-  private val popularMovieAdapter: PopularMovieAdapter by lazy {
-    PopularMovieAdapter()
-  }
-
-  override fun setLayout(inflater: LayoutInflater): ActivityDashboardBinding {
-    return ActivityDashboardBinding.inflate(layoutInflater)
+  override fun setLayout(inflater: LayoutInflater): ActivitySearchBinding {
+    return ActivitySearchBinding.inflate(inflater)
   }
 
   override fun initialization() {
+    setupWindowTopInset(binding.root)
     setupView()
-    setupObserver()
+  }
+
+  override fun onResume() {
+    super.onResume()
   }
 
   /**
    * Setup View
    */
   private fun setupView() {
-    setupWindowTopInset(binding.root)
-    isFullscreenActivity()
     setupToolbar()
     setupSwipeRefresh()
     setupRecyclerView()
+    showEmptyQuery()
+
     movieAdapter.addLoadStateListener {
       onLoadStateListener(it)
     }
-    showShimmerView()
   }
 
   private fun onLoadStateListener(state: CombinedLoadStates) = lifecycleScope.launch {
     when (state.refresh) {
       is LoadState.Loading -> {
-        /*No Implementation*/
+        if (movieAdapter.itemCount == 0) {
+          showShimmerView()
+        }
       }
 
-      is LoadState.NotLoading -> showDataView()
+      is LoadState.NotLoading -> {
+        if (binding.tfSearch.getText().isBlank()) {
+          showEmptyQuery()
+          return@launch
+        }
+
+        if (movieAdapter.itemCount > 0) {
+          showDataView()
+          return@launch
+        }
+
+        showEmptyMovie()
+      }
+
       is LoadState.Error -> showShimmerView()
     }
   }
 
   /**
-   * Setup Toolbar
+   * Setup toolbar
    */
   private fun setupToolbar() {
-    binding.ivSearch.setOnClickListener {
-      navigateToSearch()
+    setAsActionBar(binding.toolbar)
+    binding.tfSearch.run {
+      requestFocus()
+      addTextChangedListener {
+        searchMovie(it.toString())
+      }
     }
   }
 
@@ -107,9 +121,9 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding>() {
    * Setup Data When Refresh
    */
   private fun setRefresh() {
-    showShimmerView()
-    viewModel.getPopularMovie()
-    observeDiscoverMovie()
+    binding.tfSearch.run {
+      searchMovie(getText())
+    }
   }
 
   /**
@@ -133,77 +147,44 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding>() {
     }
   }
 
-  /**
-   * Setup Observer
-   */
-  private fun setupObserver() {
-    observeDiscoverMovie()
-    observePopularMovieState()
-    viewModel.getPopularMovie()
-  }
-
-  /**
-   * Observe get discover movie state
-   */
-  private fun observeDiscoverMovie() {
+  private fun searchMovie(query: String) {
     lifecycleScope.launch {
-      viewModel.getDiscoverMovie().collectLatest {
+      viewModel.searchMovie(query).collectLatest {
         movieAdapter.submitData(it)
       }
     }
   }
 
-  private fun showShimmerView() {
-    binding.vaToolbar.displayedChild = 1
-    binding.vaMovie.displayedChild = 1
-  }
-
   private fun showDataView() {
-    binding.vaToolbar.displayedChild = 0
+    binding.swipeRefresh.isRefreshing = false
     binding.vaMovie.displayedChild = 0
   }
 
-  /**
-   * Observe get popular movie state
-   */
-  private fun observePopularMovieState() {
-    viewModel.getPopularMovieState.observe(this) { result ->
-      result.success { onGetPopularMovieSuccess(it.items) }
-
-      result.error { onGetPopularMovieFailed(it) }
-    }
+  private fun showEmptyMovie() {
+    binding.swipeRefresh.isRefreshing = false
+    binding.vaMovie.displayedChild = 1
   }
 
-  private fun onGetPopularMovieSuccess(items: List<MovieModel>?) {
+  private fun showEmptyQuery() {
     binding.swipeRefresh.isRefreshing = false
-    if (items.isNullOrEmpty()) return
-    binding.vpPopular.run {
-      adapter = popularMovieAdapter as BaseBannerAdapter<Any>
-      create(items.take(5))
-    }
+    binding.vaMovie.displayedChild = 2
   }
 
-  private fun onGetPopularMovieFailed(error: NetworkError) {
+  private fun showShimmerView() {
     binding.swipeRefresh.isRefreshing = false
-    errorHandler.showError(error)
+    binding.vaMovie.displayedChild = 3
   }
 
   /**
    * Navigation
    */
-  private fun navigateToSearch() {
-    startActivity(SearchActivity.newIntent(this))
-  }
-
   private fun navigateToDetail(movieId: Int, movieTitle: String) {
     startActivity(DetailMovieActivity.newIntent(this, movieId, movieTitle))
   }
 
   companion object {
     fun newIntent(context: Context?): Intent {
-      return Intent(context, DashboardActivity::class.java).apply {
-        flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-      }
+      return Intent(context, SearchActivity::class.java)
     }
   }
 }

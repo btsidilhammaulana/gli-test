@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+  <LinearLayout
+      android:id="@+id/label_container"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:visibility="gone">
+
+    <TextView
+        android:id="@+id/tv_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primary_500"
+        tools:text="text field label" />
+
+    <TextView
+        android:id="@+id/tv_required"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing"
+        android:text="@string/required_sign"
+        android:textColor="@color/error_600"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@id/tv_label"
+        app:layout_constraintTop_toTopOf="@id/tv_label" />
+
+  </LinearLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/root_edit_text"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/spacing_xxs"
+      android:background="@drawable/bg_rounded_bordered"
+      android:clickable="true"
+      android:focusable="true">
+
+    <ImageView
+        android:id="@+id/iv_prefix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_prefix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_prefix"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/text_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="@null"
+        android:background="@null"
+        android:hint="@null"
+        android:inputType="text"
+        android:padding="@dimen/spacing_s"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_suffix"
+        app:layout_constraintStart_toEndOf="@id/tv_prefix"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_suffix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_suffix"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_suffix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <TextView
+      android:id="@+id/tv_error"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/spacing"
+      android:layout_marginTop="@dimen/spacing_xxs"
+      android:textColor="@color/error_500"
+      android:visibility="gone"
+      tools:text="error label" />
+
+</LinearLayout>

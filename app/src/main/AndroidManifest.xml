@@ -34,6 +34,11 @@
         android:theme="@style/Theme.Material3.Light.NoActionBar"
         android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
 
+    <activity android:name=".screen.search.SearchActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:theme="@style/Theme.Material3.Light.NoActionBar"
+        android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
   </application>
 
 </manifest>
