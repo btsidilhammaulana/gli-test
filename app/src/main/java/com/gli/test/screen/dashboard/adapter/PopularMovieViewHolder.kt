@@ -2,9 +2,15 @@ package com.gli.test.screen.dashboard.adapter
 
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil3.load
+import coil3.request.error
+import coil3.request.fallback
+import coil3.request.placeholder
+import coil3.request.transformations
+import coil3.transform.RoundedCornersTransformation
 import com.gli.model.constant.ImageQuality
 import com.gli.model.extension.StringExtensions.toImageUrl
 import com.gli.model.response.movie.MovieModel
+import com.gli.test.R
 import com.gli.test.databinding.ItemPopularMovieBinding
 
 class PopularMovieViewHolder(
@@ -12,7 +18,11 @@ class PopularMovieViewHolder(
 ) : ViewHolder(binding.root) {
   fun bind(movie: MovieModel) = with(movie) {
     binding.run {
-      ivPoster.load(backdropPath.toImageUrl(ImageQuality.W780))
+      ivPoster.load(backdropPath.toImageUrl(ImageQuality.W780)) {
+        placeholder(R.drawable.tmdb_logo)
+        error(R.drawable.tmdb_logo)
+        fallback(R.drawable.tmdb_logo)
+      }
     }
   }
 }

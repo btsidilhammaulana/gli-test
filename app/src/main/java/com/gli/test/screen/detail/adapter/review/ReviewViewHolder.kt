@@ -3,6 +3,11 @@ package com.gli.test.screen.detail.adapter.review
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil3.load
+import coil3.request.error
+import coil3.request.fallback
+import coil3.request.placeholder
+import coil3.request.transformations
+import coil3.transform.RoundedCornersTransformation
 import com.gli.model.constant.ImageQuality
 import com.gli.model.extension.DateExtension.toFormattedDate
 import com.gli.model.extension.StringExtensions.toImageUrl
@@ -18,7 +23,12 @@ class ReviewViewHolder(
     val context = binding.root.context
 
     binding.run {
-      ivAuthor.load(authorDetails?.avatarPath.toImageUrl(ImageQuality.W500))
+      ivAuthor.load(authorDetails?.avatarPath.toImageUrl(ImageQuality.W500)) {
+        placeholder(R.drawable.tmdb_logo)
+        error(R.drawable.tmdb_logo)
+        fallback(R.drawable.tmdb_logo)
+        transformations(RoundedCornersTransformation(32f))
+      }
       tvAuthor.text = author
       tvDate.text = createdAt?.toFormattedDate("dd MMM yyyy, HH:mm")
       tvContent.text = content
