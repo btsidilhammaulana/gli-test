@@ -17,6 +17,7 @@ import com.gli.model.constant.ImageQuality
 import com.gli.model.extension.DateExtension.toFormattedDate
 import com.gli.model.extension.StringExtensions.toImageUrl
 import com.gli.model.response.base.BaseListModel
+import com.gli.model.response.credit.CreditItem
 import com.gli.model.response.credit.CreditModel
 import com.gli.model.response.credit.CreditResponseModel
 import com.gli.model.response.movie.MovieModel
@@ -131,7 +132,7 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
    */
   private fun setupCreditRecyclerView() {
     binding.contentDetail.rvCredit.run {
-      layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
+      layoutManager = GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
       adapter = creditAdapter
       isNestedScrollingEnabled = true
       clipToPadding = false
@@ -204,7 +205,8 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
     binding.contentDetail.tvTitle.text = movie?.title
     binding.contentDetail.tvReleaseDate.text = movie?.releaseDate?.toFormattedDate("dd MMMM yyyy")
     binding.contentDetail.tvRating.text = "${movie?.voteAverage}"
-    binding.contentDetail.tvPopularity.text = getString(R.string.popularity_movie, movie?.popularity.toString())
+    binding.contentDetail.tvPopularity.text =
+      getString(R.string.popularity_movie, movie?.popularity.toString())
 
     movie?.genres?.let { genreAdapter.setItems(it) }
 
@@ -228,7 +230,8 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
     for (video in items.items as List<VideoModel>) {
       if (video.type == "Trailer") {
         lifecycle.addObserver(binding.contentDetail.youtubePlayer)
-        binding.contentDetail.youtubePlayer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+        binding.contentDetail.youtubePlayer.addYouTubePlayerListener(object :
+          AbstractYouTubePlayerListener() {
           override fun onReady(youTubePlayer: YouTubePlayer) {
             video.key?.let { youTubePlayer.cueVideo(it, 0f) }
           }
@@ -252,7 +255,20 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
   private fun onGetCreditSuccess(credits: CreditResponseModel) {
     if (credits.cast.isNullOrEmpty()) return
 
-    creditAdapter.setItems(credits.cast as List<CreditModel>)
+    val data = credits.cast as List<CreditModel>
+
+    val finalData: List<CreditItem> =
+      if (data.size >= 8) {
+        val visibleItems: MutableList<CreditItem> =
+          data.take(7).map { CreditItem.DataItem(it) }.toMutableList()
+        val remainingCount = data.size - 7
+        visibleItems.add(CreditItem.MoreItem(remainingCount))
+        visibleItems
+      } else {
+        data.map { CreditItem.DataItem(it) }
+      }
+
+    creditAdapter.setItems(finalData)
   }
 
   /**
