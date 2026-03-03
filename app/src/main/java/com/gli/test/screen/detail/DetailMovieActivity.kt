@@ -131,7 +131,7 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
    */
   private fun setupCreditRecyclerView() {
     binding.contentDetail.rvCredit.run {
-      layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+      layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
       adapter = creditAdapter
       isNestedScrollingEnabled = true
       clipToPadding = false
