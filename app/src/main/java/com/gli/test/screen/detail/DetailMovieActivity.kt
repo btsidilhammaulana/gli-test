@@ -84,6 +84,7 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
   private fun setupView() {
     setupWindowTopInset(binding.root)
     setupToolbar()
+    setupFloatingActionButton()
     setupGenreRecyclerView()
     setupCreditRecyclerView()
     setupReviewRecyclerView()
@@ -102,6 +103,15 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
   private fun setupToolbar() {
     setAsActionBar(binding.toolbar)
     binding.toolbar.title = viewModel.movieTitle
+  }
+
+  /**
+   * Setup Floating Action Button
+   */
+  private fun setupFloatingActionButton() {
+    binding.fabToTop.setOnClickListener {
+      binding.nsDetail.smoothScrollTo(0, 0)
+    }
   }
 
   /**

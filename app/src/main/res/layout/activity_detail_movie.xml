@@ -5,34 +5,47 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient">
 
-  <androidx.appcompat.widget.Toolbar
-      android:id="@+id/toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="?actionBarSize"
-      app:layout_collapseMode="pin"
-      app:layout_constraintTop_toTopOf="parent"
-      app:titleTextColor="@color/neutral_100" />
-
-  <androidx.core.widget.NestedScrollView
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/toolbar">
-
-    <ViewAnimator
-        android:id="@+id/va_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="?actionBarSize"
+        app:layout_collapseMode="pin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/neutral_100" />
 
-      <include
-          android:id="@+id/content_detail"
-          layout="@layout/content_detail_movie" />
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/ns_detail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-      <include layout="@layout/shimmer_detail_movie" />
+        <ViewAnimator
+            android:id="@+id/va_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </ViewAnimator>
+            <include
+                android:id="@+id/content_detail"
+                layout="@layout/content_detail_movie" />
 
-  </androidx.core.widget.NestedScrollView>
+            <include layout="@layout/shimmer_detail_movie" />
+
+        </ViewAnimator>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_to_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_xl"
+        android:background="@color/neutral_100"
+        android:backgroundTint="@color/neutral_100"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_arrow_up"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
