@@ -14,6 +14,7 @@ import com.gli.model.adapter.error
 import com.gli.model.adapter.loading
 import com.gli.model.adapter.success
 import com.gli.model.constant.ImageQuality
+import com.gli.model.extension.DateExtension.toFormattedDate
 import com.gli.model.extension.StringExtensions.toImageUrl
 import com.gli.model.response.base.BaseListModel
 import com.gli.model.response.credit.CreditModel
@@ -191,7 +192,7 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
     }
 
     binding.contentDetail.tvTitle.text = movie?.title
-    binding.contentDetail.tvReleaseDate.text = movie?.releaseDate
+    binding.contentDetail.tvReleaseDate.text = movie?.releaseDate?.toFormattedDate("yyyy-MM-dd", "dd MMMM yyyy")
     binding.contentDetail.tvRating.text = "${movie?.voteAverage}"
     binding.contentDetail.tvPopularity.text = getString(R.string.popularity_movie, movie?.popularity.toString())
 
