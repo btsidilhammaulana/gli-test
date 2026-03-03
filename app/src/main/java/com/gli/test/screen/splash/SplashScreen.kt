@@ -4,14 +4,19 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import com.gli.test.base.BaseActivity
 import com.gli.test.databinding.ActivitySplashBinding
 import com.gli.test.screen.dashboard.DashboardActivity
+import com.gli.test.util.permission.PermissionList
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
-class SplashScreen: BaseActivity<ActivitySplashBinding>() {
+class SplashScreen : BaseActivity<ActivitySplashBinding>() {
+
   override fun isFullscreenActivity(): Boolean = true
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +29,14 @@ class SplashScreen: BaseActivity<ActivitySplashBinding>() {
   }
 
   override fun initialization() {
-    gotoDashboardPage()
+    checkNotificationPermissions()
+  }
+
+  private fun checkNotificationPermissions() = lifecycleScope.launch {
+    delay(500)
+    appLauncher.requestPermissions(PermissionList.Notification) {
+      gotoDashboardPage()
+    }
   }
 
   private fun gotoDashboardPage() {
