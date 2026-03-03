@@ -47,7 +47,13 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding>() {
   }
 
   private val popularMovieAdapter: PopularMovieAdapter by lazy {
-    PopularMovieAdapter()
+    val adapter = PopularMovieAdapter()
+    adapter.addOnItemClickListener(object : PopularMovieAdapter.ItemClickListener {
+      override fun onItemClicked(movie: MovieModel?) {
+        movie?.id?.let { id -> movie.title?.let { title -> navigateToDetail(id, title) } }
+      }
+    })
+    adapter
   }
 
   override fun setLayout(inflater: LayoutInflater): ActivityDashboardBinding {
