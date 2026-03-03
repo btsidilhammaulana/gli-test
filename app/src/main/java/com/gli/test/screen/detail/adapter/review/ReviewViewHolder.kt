@@ -24,9 +24,9 @@ class ReviewViewHolder(
 
     binding.run {
       ivAuthor.load(authorDetails?.avatarPath.toImageUrl(ImageQuality.W500)) {
-        placeholder(R.drawable.tmdb_logo)
-        error(R.drawable.tmdb_logo)
-        fallback(R.drawable.tmdb_logo)
+        placeholder(R.drawable.img_placeholder)
+        error(R.drawable.img_placeholder)
+        fallback(R.drawable.img_placeholder)
         transformations(RoundedCornersTransformation(32f))
       }
       tvAuthor.text = author

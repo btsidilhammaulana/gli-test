@@ -19,9 +19,9 @@ class CreditViewHolder(
   fun bind(cast: CreditModel) = with(cast) {
     binding.run {
       ivCast.load(profilePath.toImageUrl(ImageQuality.W500)) {
-        placeholder(R.drawable.tmdb_logo)
-        error(R.drawable.tmdb_logo)
-        fallback(R.drawable.tmdb_logo)
+        placeholder(R.drawable.img_placeholder)
+        error(R.drawable.img_placeholder)
+        fallback(R.drawable.img_placeholder)
       }
       tvCast.text = name
     }
