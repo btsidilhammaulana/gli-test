@@ -68,7 +68,7 @@
           <Space
               android:layout_width="0dp"
               android:layout_height="wrap_content"
-              android:layout_weight="1"/>
+              android:layout_weight="1" />
 
           <ImageView
               android:id="@+id/iv_search"
@@ -93,32 +93,55 @@
       android:layout_height="match_parent"
       app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <ViewAnimator
-        android:id="@+id/va_movie"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/ns_movie"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-      <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/rv_movie"
+      <ViewAnimator
+          android:id="@+id/va_movie"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:clipChildren="false"
-          android:clipToPadding="false"
-          android:overScrollMode="never"
-          android:paddingBottom="@dimen/spacing"
-          tools:listitem="@layout/shimmer_item_movie" />
+          android:layout_height="match_parent">
 
-      <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/rv_shimmer"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:clipChildren="false"
-          android:clipToPadding="false"
-          android:overScrollMode="never"
-          android:paddingBottom="@dimen/spacing"
-          tools:listitem="@layout/shimmer_item_movie" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </ViewAnimator>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/discover_movie"
+              android:textColor="@color/neutral_100"
+              android:paddingHorizontal="@dimen/spacing"
+              android:textSize="20sp"
+              android:textStyle="bold" />
+
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/rv_movie"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:clipChildren="false"
+              android:clipToPadding="false"
+              android:overScrollMode="never"
+              android:paddingBottom="@dimen/spacing"
+              tools:listitem="@layout/shimmer_item_movie" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingBottom="@dimen/spacing"
+            tools:listitem="@layout/shimmer_item_movie" />
+
+      </ViewAnimator>
+
+    </androidx.core.widget.NestedScrollView>
 
   </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
