@@ -30,6 +30,7 @@ import com.gli.test.screen.detail.adapter.credit.CreditAdapter
 import com.gli.test.screen.detail.adapter.genre.GenreAdapter
 import com.gli.test.screen.detail.adapter.review.ReviewAdapter
 import com.gli.test.screen.detail.adapter.similar.SimilarAdapter
+import com.gli.test.screen.detail.bottomsheet.CastBottomSheetDialogFragment
 import com.gli.test.util.extension.ContextExtensions.getDimenSizeResource
 import com.gli.test.util.extension.ToolbarExtensions.setAsActionBar
 import com.gli.test.util.grid.GridItemDecoration
@@ -47,7 +48,15 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
   }
 
   private val creditAdapter: CreditAdapter by lazy {
-    CreditAdapter()
+    val adapter = CreditAdapter()
+    adapter.addOnItemClickListener(object : CreditAdapter.ItemClickListener {
+      override fun onMoreItemClicked() {
+        CastBottomSheetDialogFragment
+          .newInstance(ArrayList(viewModel.moreCredit))
+          .show(supportFragmentManager, "CastBottomSheet")
+      }
+    })
+    adapter
   }
 
   private val reviewAdapter: ReviewAdapter by lazy {
@@ -259,13 +268,15 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
 
     val finalData: List<CreditItem> =
       if (data.size >= 8) {
-        val visibleItems: MutableList<CreditItem> =
-          data.take(7).map { CreditItem.DataItem(it) }.toMutableList()
+        val visibleItems: MutableList<CreditItem> = data.take(7).map { CreditItem.DataItem(it) }.toMutableList()
         val remainingCount = data.size - 7
+        viewModel.moreCredit.addAll(data.drop(7))
         visibleItems.add(CreditItem.MoreItem(remainingCount))
         visibleItems
       } else {
-        data.map { CreditItem.DataItem(it) }
+        data.map {
+          CreditItem.DataItem(it)
+        }
       }
 
     creditAdapter.setItems(finalData)

@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.gli.domain.usecase.DetailMovieScreenUseCase
 import com.gli.model.adapter.NetworkResponse
 import com.gli.model.response.base.BaseListModel
+import com.gli.model.response.credit.CreditModel
 import com.gli.model.response.credit.CreditResponseModel
 import com.gli.model.response.movie.MovieModel
 import com.gli.model.response.review.ReviewModel
@@ -31,6 +32,8 @@ class DetailMovieViewModel @Inject constructor(
   val getReviewState = UiState<NetworkResponse<BaseListModel<ReviewModel>>>(NetworkResponse.Loading)
 
   val getSimilarState = UiState<NetworkResponse<BaseListModel<MovieModel>>>(NetworkResponse.Loading)
+
+  val moreCredit : ArrayList<CreditModel> = arrayListOf()
 
   fun getDetailMovie() = viewModelScope.launch {
     movieId?.let { id ->

@@ -5,8 +5,6 @@ import coil3.load
 import coil3.request.error
 import coil3.request.fallback
 import coil3.request.placeholder
-import coil3.request.transformations
-import coil3.transform.RoundedCornersTransformation
 import com.gli.model.constant.ImageQuality
 import com.gli.model.extension.StringExtensions.toImageUrl
 import com.gli.model.response.credit.CreditModel
@@ -14,7 +12,8 @@ import com.gli.test.R
 import com.gli.test.databinding.ItemCastBinding
 
 class CreditViewHolder(
-  private val binding: ItemCastBinding
+  private val binding: ItemCastBinding,
+  private val useBlackTextColor : Boolean = false
 ) : ViewHolder(binding.root) {
   fun bind(cast: CreditModel) = with(cast) {
     binding.run {
@@ -24,6 +23,10 @@ class CreditViewHolder(
         fallback(R.drawable.img_placeholder)
       }
       tvCast.text = name
+
+      if (useBlackTextColor) {
+        tvCast.setTextColor(binding.root.context.getColor(R.color.primary_900))
+      }
     }
   }
 }

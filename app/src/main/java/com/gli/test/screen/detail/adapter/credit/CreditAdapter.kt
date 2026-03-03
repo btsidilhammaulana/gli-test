@@ -11,6 +11,8 @@ class CreditAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   private val items: ArrayList<CreditItem> = arrayListOf()
 
+  private var listener: ItemClickListener? = null
+
   companion object {
     const val VIEW_TYPE_DATA = 1
     const val VIEW_TYPE_MORE = 2
@@ -44,7 +46,12 @@ class CreditAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
     when (val item = items[position]) {
       is CreditItem.DataItem -> (holder as CreditViewHolder).bind(item.data)
-      is CreditItem.MoreItem -> (holder as CreditMoreViewHolder).bind(item.remainingCount)
+      is CreditItem.MoreItem -> {
+        (holder as CreditMoreViewHolder).bind(item.remainingCount)
+        holder.itemView.setOnClickListener {
+          listener?.onMoreItemClicked()
+        }
+      }
     }
   }
 
@@ -52,5 +59,13 @@ class CreditAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     items.clear()
     items.addAll(newList)
     notifyItemRangeChanged(0, newList.size)
+  }
+
+  fun addOnItemClickListener(listener: ItemClickListener) {
+    this.listener = listener
+  }
+
+  interface ItemClickListener {
+    fun onMoreItemClicked()
   }
 }
