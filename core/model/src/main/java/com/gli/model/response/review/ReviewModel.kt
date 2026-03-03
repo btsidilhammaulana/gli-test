@@ -30,5 +30,7 @@ data class ReviewModel(
 
   @Expose
   @SerializedName("url")
-  val url: String? = null
+  val url: String? = null,
+
+  var isExpanded: Boolean = false
 )

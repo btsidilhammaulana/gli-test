@@ -202,7 +202,7 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
     }
 
     binding.contentDetail.tvTitle.text = movie?.title
-    binding.contentDetail.tvReleaseDate.text = movie?.releaseDate?.toFormattedDate("yyyy-MM-dd", "dd MMMM yyyy")
+    binding.contentDetail.tvReleaseDate.text = movie?.releaseDate?.toFormattedDate("dd MMMM yyyy")
     binding.contentDetail.tvRating.text = "${movie?.voteAverage}"
     binding.contentDetail.tvPopularity.text = getString(R.string.popularity_movie, movie?.popularity.toString())
 

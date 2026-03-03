@@ -1,55 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_marginVertical="@dimen/spacing_xs"
-  app:cardBackgroundColor="@color/custom_white_trans"
-  app:cardCornerRadius="@dimen/border_radius">
-
-  <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/spacing">
+    android:layout_marginVertical="@dimen/spacing_xs"
+    app:cardBackgroundColor="@color/custom_white_trans"
+    app:cardCornerRadius="@dimen/border_radius">
 
-    <com.gli.custom.circleimageview.CircleImageView
-      android:id="@+id/iv_author"
-      android:layout_width="72dp"
-      android:layout_height="72dp"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-      android:id="@+id/tv_author"
-      android:textColor="@color/neutral_900"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/spacing"
-      app:layout_constraintBottom_toTopOf="@id/tv_date"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/iv_author"
-      app:layout_constraintTop_toTopOf="@id/iv_author"
-      tools:text="Author" />
-
-    <TextView
-      android:id="@+id/tv_date"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/spacing"
-      app:layout_constraintBottom_toBottomOf="@id/iv_author"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/iv_author"
-      app:layout_constraintTop_toBottomOf="@id/tv_author"
-      tools:text="September 6, 2023" />
-
-    <TextView
-      android:id="@+id/tv_content"
+  <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/spacing_xs"
-      tools:text="content of the review"
-      app:layout_constraintTop_toBottomOf="@id/iv_author" />
+      android:padding="@dimen/spacing">
+
+    <com.gli.custom.circleimageview.CircleImageView
+        android:id="@+id/iv_author"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_author"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing"
+        android:textColor="@color/neutral_900"
+        app:layout_constraintBottom_toTopOf="@id/tv_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_author"
+        app:layout_constraintTop_toTopOf="@id/iv_author"
+        tools:text="Author" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing"
+        app:layout_constraintBottom_toBottomOf="@id/iv_author"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_author"
+        app:layout_constraintTop_toBottomOf="@id/tv_author"
+        tools:text="September 6, 2023" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_xs"
+        android:ellipsize="end"
+        android:maxLines="3"
+        app:layout_constraintTop_toBottomOf="@id/iv_author"
+        tools:text="Long review content goes here..." />
+
+    <TextView
+        android:id="@+id/tv_read_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/read_more"
+        android:textColor="@color/primary_500"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_content"
+        tools:visibility="visible" />
 
 
   </androidx.constraintlayout.widget.ConstraintLayout>

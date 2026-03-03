@@ -9,4 +9,6 @@
   <string name="label_empty_query">Please input query to search movie</string>
   <string name="label_empty_search">Movie not found</string>
   <string name="discover_movie">Discover Movie</string>
+  <string name="read_more">Read More</string>
+  <string name="read_less">Read Less</string>
 </resources>

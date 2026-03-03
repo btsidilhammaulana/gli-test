@@ -18,7 +18,9 @@ class ReviewAdapter : RecyclerView.Adapter<ReviewViewHolder>() {
   override fun getItemCount(): Int = items.size
 
   override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
-    holder.bind(items[position])
+    holder.bind(items[position]) {
+      notifyItemChanged(position)
+    }
   }
 
   fun setItems(filteredList: List<ReviewModel>) {
